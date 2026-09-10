@@ -1,0 +1,30 @@
+services:
+  main:
+    build:
+      args:
+          INSTALL_JUPYTER: false
+    ports:
+      - "80:80"
+    environment:
+      
+      
+    volumes:
+      - .:/app
+
+  jupyter:
+    build:
+      args:
+          INSTALL_JUPYTER: true
+    ports:
+      - "8888:8888"
+    environment:
+      - OPENAI_API_KEY=your_openai_api_key_here
+      - LANGCHAIN_API_KEY=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
+      - LANGCHAIN_TRACING_V2=true
+      - LANGCHAIN_PROJECT=langsmith-demo
+      - LANGFUSE_SECRET_KEY=sk-lf-030abdaf-9c40-4d8d-811f-0bf04d8eaee2
+      - LANGFUSE_PUBLIC_KEY=pk-lf-c5523179-a918-489c-8dac-5119cb78f7b8
+      - LANGFUSE_HOST=https://us.cloud.langfuse.com
+    volumes:
+      - .:/app
+    command: jupyter notebook --ip=0.0.0.0 --port=8888 --no-browser --allow-root
